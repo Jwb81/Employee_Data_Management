@@ -11,8 +11,6 @@ firebase.initializeApp(config);
 
 let database = firebase.database();
 
-let objCounter = 0;
-
 // --------------------------------------------------------------
 // At the page load and subsequent value changes, get a snapshot of the local data.
 // This function allows you to update your page in real-time when the values within the firebase node bidderData changes
@@ -90,7 +88,6 @@ $("#emp-submit").on("click", function (event) {
     console.log(obj);
 
     // Code for handling the push
-    database.ref(objCounter).set(obj);
-    objCounter++;
+    database.ref().push(obj);
 
 });
