@@ -7,6 +7,11 @@ body {
     color: green;
     background-color: lightgray;
 }
+
+.card-header {
+    font-weight: bold;
+}
+
 .footer {
     position: relative;
     text-align: center;
