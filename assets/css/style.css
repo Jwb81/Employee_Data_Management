@@ -1,0 +1,13 @@
+.jumbotron {
+    background-color: darkblue;
+   
+}
+h1 {
+     color: white;
+     text-align: center;
+}
+
+.table thead th {
+    background-color: darkblue;
+    color: white;
+}
