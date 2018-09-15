@@ -25,14 +25,18 @@ let database = firebase.database();
 // });
 
 
-database.ref().orderByChild('dataAdded').limitToLast(1).on('child_added', function(snapshot) {
-    let info = snapshot.val();
+// database.ref().orderByChild('dataAdded').limitToLast(1).on('child_added', function(snapshot) {
+//     let info = snapshot.val();
 
-    $('#last-added').html(
-        'Name: ' + info.name + 
-        '<br />Role: ' + info.role
-    )
-})
+//     $('#last-added').html(
+//         'Name: ' + info.name + 
+//         '<br />Role: ' + info.role
+//     )
+// })
+
+// Defining variables
+var format = dateFns.format;
+var randomFormat = "MM/DD/YY";
 
 // Firebase watcher .on("child_added"
 database.ref().on("child_added", function (snapshot) {
@@ -47,10 +51,11 @@ database.ref().on("child_added", function (snapshot) {
         '<tr>' +
             '<td>' + sv.name + '</td>' +
             '<td>' + sv.role + '</td>' +
+            '<td>' + sv.startDate + '</td>' +
             '<td>' + sv.monthlyRate + '</td>' +
             '<td>' + sv.monthsWorked + '</td>' +
             '<td>' + sv.totalBill + '</td>' +
-            '<td>' + sv.dateAdded + '</td>' +
+            // '<td>' + sv.dateAdded + '</td>' +
         '</tr>'
     )
 
@@ -73,13 +78,16 @@ $("#emp-submit").on("click", function (event) {
     name = $("#emp-name").val().trim();
     role = $("#emp-role").val().trim();
     startDate = $("#emp-start-date").val().trim();
+    var convertedDate = format(startDate, randomFormat);
+    monthsWorked = dateFns.differenceInMonths(new Date(), new Date(convertedDate));
     monthlyRate = parseFloat($("#emp-monthly-rate").val().trim());
-    monthsWorked = parseInt($("#emp-months-worked").val().trim());
+    // monthsWorked = parseInt($("#emp-months-worked").val().trim());
     totalBill = monthlyRate * monthsWorked;
 
     let obj = {
         name: name,
         role: role,
+        startDate: startDate,
         monthlyRate: monthlyRate,
         monthsWorked: monthsWorked,
         totalBill: totalBill,
